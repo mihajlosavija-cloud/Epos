@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="sr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>MVP – Predviđanje tražnje</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <div class="brand">
+        <span class="logo">📦</span>
+        <div>
+          <div class="brand-title">Prodajko</div>
+          <div class="brand-sub">E-commerce servis za predviđanje tražnje</div>
+        </div>
+      </div>
+      <div class="userbox">
+        <span id="userLabel" class="muted">Niste prijavljeni</span>
+        <button id="logoutBtn" class="btn btn-ghost hidden">Odjava</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container grid">
+    <!-- AUTH -->
+    <section class="card" id="authCard">
+      <h2>Registracija / Login</h2>
+      <p class="muted">Za demo: registracija čuva nalog lokalno (browser). Kasnije povezujemo bazu.</p>
+
+      <div class="tabs">
+        <button class="tab active" data-tab="register">Registracija</button>
+        <button class="tab" data-tab="login">Login</button>
+      </div>
+
+      <div class="tabpanel" id="registerPanel">
+        <label>Email</label>
+        <input id="regEmail" type="email" placeholder="npr. marko@mail.com" />
+        <label>Lozinka</label>
+        <input id="regPass" type="password" placeholder="••••••••" />
+        <button id="registerBtn" class="btn">Napravi nalog</button>
+      </div>
+
+      <div class="tabpanel hidden" id="loginPanel">
+        <label>Email</label>
+        <input id="logEmail" type="email" placeholder="npr. marko@mail.com" />
+        <label>Lozinka</label>
+        <input id="logPass" type="password" placeholder="••••••••" />
+        <button id="loginBtn" class="btn">Uloguj se</button>
+      </div>
+
+      <div id="authMsg" class="msg hidden"></div>
+    </section>
+
+    <!-- DATA ENTRY (simulated "database") -->
+    <section class="card" id="dataCard">
+      <h2>Unos podataka (prodaja)</h2>
+      <p class="muted">Ovo predstavlja unos u bazu: proizvod, datum, količina, stanje zaliha.</p>
+
+      <div class="row">
+        <div>
+          <label>Naziv proizvoda</label>
+          <input id="productName" type="text" placeholder="npr. Protein bar 50g" />
+        </div>
+        <div>
+          <label>Trenutno stanje zaliha</label>
+          <input id="productStock" type="number" min="0" placeholder="npr. 120" />
+        </div>
+      </div>
+
+      <div class="row">
+        <div>
+          <label>Datum prodaje</label>
+          <input id="saleDate" type="date" />
+        </div>
+        <div>
+          <label>Količina prodata</label>
+          <input id="saleQty" type="number" min="0" placeholder="npr. 15" />
+        </div>
+      </div>
+
+      <button id="addSaleBtn" class="btn btn-secondary">Sačuvaj unos prodaje</button>
+
+      <div class="divider"></div>
+
+      <h3>Uneti podaci</h3>
+      <div class="tablewrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Proizvod</th>
+              <th>Datum</th>
+              <th>Količina</th>
+              <th class="right">Akcija</th>
+            </tr>
+          </thead>
+          <tbody id="salesTbody">
+            <tr><td colspan="4" class="muted">Nema unosa još.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div id="dataMsg" class="msg hidden"></div>
+    </section>
+
+    <!-- FORECAST -->
+    <section class="card" id="forecastCard">
+      <h2>Predviđanje tražnje</h2>
+      <p class="muted">MVP metoda: prosek poslednjih unosa → prognoza za naredni period.</p>
+
+      <label>Period predikcije</label>
+      <select id="months">
+        <option value="1">Naredni 1 mesec</option>
+        <option value="3" selected>Naredna 3 meseca</option>
+        <option value="6">Narednih 6 meseci</option>
+      </select>
+
+      <button id="forecastBtn" class="btn">Generiši predikciju</button>
+
+      <div class="divider"></div>
+
+      <div class="kpi-grid">
+        <div class="kpi">
+          <div class="kpi-label">Prognoza tražnje</div>
+          <div id="forecastValue" class="kpi-value">—</div>
+          <div class="muted">kom (za izabrani period)</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-label">Trenutna zaliha</div>
+          <div id="stockValue" class="kpi-value">—</div>
+          <div class="muted">kom</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-label">Preporuka naručivanja</div>
+          <div id="orderValue" class="kpi-value">—</div>
+          <div class="muted">kom</div>
+        </div>
+      </div>
+
+      <div id="forecastMsg" class="msg hidden"></div>
+    </section>
+  </main>
+
+  <footer class="footer container muted">
+   
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
