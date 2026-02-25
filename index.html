@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>MVP – Predviđanje tražnje</title>
+  <title>Prodajko– Predviđanje tražnje</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -24,7 +24,6 @@
   </header>
 
   <main class="container grid">
-    <!-- AUTH -->
     <section class="card" id="authCard">
       <h2>Registracija / Login</h2>
       <p class="muted">Za demo: registracija čuva nalog lokalno (browser). Kasnije povezujemo bazu.</p>
@@ -52,8 +51,6 @@
 
       <div id="authMsg" class="msg hidden"></div>
     </section>
-
-    <!-- DATA ENTRY (simulated "database") -->
     <section class="card" id="dataCard">
       <h2>Unos podataka (prodaja)</h2>
       <p class="muted">Ovo predstavlja unos u bazu: proizvod, datum, količina, stanje zaliha.</p>
@@ -102,8 +99,6 @@
       </div>
       <div id="dataMsg" class="msg hidden"></div>
     </section>
-
-    <!-- FORECAST -->
     <section class="card" id="forecastCard">
       <h2>Predviđanje tražnje</h2>
       <p class="muted">MVP metoda: prosek poslednjih unosa → prognoza za naredni period.</p>
@@ -147,4 +142,5 @@
 
   <script src="app.js"></script>
 </body>
+
 </html>
