@@ -1,8 +1,8 @@
-// MVP "baza" u memoriji (kasnije menjamo na pravu bazu)
+
 let currentUser = null;
 let db = {
   users: [],
-  sales: [] // {id, productName, stock, date, qty, userEmail}
+  sales: [] 
 };
 
 const $ = (id) => document.getElementById(id);
@@ -21,7 +21,7 @@ function setLoggedInUI() {
   userLabel.textContent = locked ? "Niste prijavljeni" : `Prijavljen: ${currentUser}`;
   logoutBtn.classList.toggle("hidden", locked);
 
-  // možeš da zabraniš unos ako nije loginovan
+
   $("dataCard").style.opacity = locked ? "0.55" : "1";
   $("forecastCard").style.opacity = locked ? "0.55" : "1";
 }
@@ -50,7 +50,7 @@ function renderSales() {
       </tr>
     `).join("");
 
-  // delete handlers
+
   tbody.querySelectorAll("button[data-del]").forEach(btn => {
     btn.addEventListener("click", () => {
       const id = Number(btn.getAttribute("data-del"));
@@ -64,7 +64,6 @@ function escapeHtml(str){
   return String(str).replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;");
 }
 
-// Tabs
 document.querySelectorAll(".tab").forEach(t => {
   t.addEventListener("click", () => {
     document.querySelectorAll(".tab").forEach(x => x.classList.remove("active"));
@@ -76,7 +75,7 @@ document.querySelectorAll(".tab").forEach(t => {
   });
 });
 
-// Register
+
 $("registerBtn").addEventListener("click", () => {
   const email = $("regEmail").value.trim();
   const pass = $("regPass").value;
@@ -89,7 +88,6 @@ $("registerBtn").addEventListener("click", () => {
   $("regPass").value = "";
 });
 
-// Login
 $("loginBtn").addEventListener("click", () => {
   const email = $("logEmail").value.trim();
   const pass = $("logPass").value;
@@ -103,7 +101,6 @@ $("loginBtn").addEventListener("click", () => {
   renderSales();
 });
 
-// Logout
 $("logoutBtn").addEventListener("click", () => {
   currentUser = null;
   setLoggedInUI();
@@ -113,7 +110,6 @@ $("logoutBtn").addEventListener("click", () => {
   $("orderValue").textContent = "—";
 });
 
-// Add sale
 $("addSaleBtn").addEventListener("click", () => {
   if (!currentUser) return showMsg($("dataMsg"), "Morate biti ulogovani.");
 
@@ -140,7 +136,6 @@ $("addSaleBtn").addEventListener("click", () => {
   renderSales();
 });
 
-// Forecast (simple average)
 $("forecastBtn").addEventListener("click", () => {
   if (!currentUser) return showMsg($("forecastMsg"), "Morate biti ulogovani.");
 
@@ -155,14 +150,11 @@ $("forecastBtn").addEventListener("click", () => {
 
   if (rows.length < 2) return showMsg($("forecastMsg"), "Unesite bar 2 unosa prodaje za taj proizvod.");
 
-  // MVP: prosek po unosu -> skaluje se na mesece (vrlo jednostavno, ali ok za MVP)
   const total = rows.reduce((sum, r) => sum + r.qty, 0);
   const avgPerEntry = total / rows.length;
 
-  // pretpostavimo ~4 unosa mesečno (npr. nedeljno)
   const forecast = Math.round(avgPerEntry * (months * 4));
 
-  // stock uzmi iz poslednjeg unosa
   const stock = Number(rows[rows.length - 1].stock || 0);
   const recommendedOrder = Math.max(0, forecast - stock);
 
@@ -173,6 +165,7 @@ $("forecastBtn").addEventListener("click", () => {
   showMsg($("forecastMsg"), "Predikcija generisana (MVP statistički metod).");
 });
 
-// init
+
 setLoggedInUI();
+
 renderSales();
